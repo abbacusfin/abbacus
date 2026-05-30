@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)file:///C:/Users/felip/Downloads/abbacus-landing_2.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abbacus — Em breve</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./Abbacus — Em breve_files/css2" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1628;
+    --navy-deep:#070E1C;
+    --teal:#0ABFB3;
+    --teal-soft:#3FD9CE;
+    --cream:#F4F0E8;
+    --cream-dim:#9FB0BE;
+    --muted:#5A7A96;
+    --serif:Georgia,'Times New Roman',serif;
+    --mono:'DM Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    background:var(--navy);
+    color:var(--cream);
+    font-family:var(--mono);
+    overflow:hidden;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+  }
+
+  /* ── Animated aurora background ── */
+  .aurora{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+  }
+  .aurora::before,.aurora::after{
+    content:'';
+    position:absolute;
+    border-radius:50%;
+    filter:blur(90px);
+    opacity:0.35;
+  }
+  .aurora::before{
+    width:60vw;height:60vw;
+    background:radial-gradient(circle,var(--teal) 0%,transparent 70%);
+    top:-15vw;right:-10vw;
+    animation:drift1 18s ease-in-out infinite alternate;
+  }
+  .aurora::after{
+    width:50vw;height:50vw;
+    background:radial-gradient(circle,#0E5A56 0%,transparent 70%);
+    bottom:-15vw;left:-8vw;
+    animation:drift2 22s ease-in-out infinite alternate;
+  }
+  @keyframes drift1{
+    0%{transform:translate(0,0) scale(1);}
+    100%{transform:translate(-6vw,6vh) scale(1.15);}
+  }
+  @keyframes drift2{
+    0%{transform:translate(0,0) scale(1);}
+    100%{transform:translate(5vw,-5vh) scale(1.1);}
+  }
+
+  /* ── Grain overlay ── */
+  .grain{
+    position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.05;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ── Orbital rings (subtle, decorative) ── */
+  .orbit{
+    position:fixed;
+    top:50%;left:50%;
+    border:1px solid rgba(10,191,179,0.12);
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    z-index:1;
+  }
+  .orbit.r1{width:480px;height:480px;animation:spin 40s linear infinite;}
+  .orbit.r2{width:720px;height:720px;animation:spin 70s linear infinite reverse;}
+  .orbit.r3{width:1000px;height:1000px;border-color:rgba(10,191,179,0.06);}
+  .orbit .dot{
+    position:absolute;width:6px;height:6px;border-radius:50%;
+    background:var(--teal);top:-3px;left:50%;
+    box-shadow:0 0 12px var(--teal);
+  }
+  @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg);}}
+
+  /* ── Main content ── */
+  .content{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    padding:2rem;
+    animation:rise 1.4s cubic-bezier(0.2,0.8,0.2,1) both;
+  }
+  @keyframes rise{
+    from{opacity:0;transform:translateY(24px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:0.42em;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin-bottom:2rem;
+    opacity:0;
+    animation:fade 1s ease 0.3s forwards;
+  }
+
+  .logo{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:clamp(3.5rem,12vw,8rem);
+    line-height:0.95;
+    letter-spacing:-0.02em;
+    color:var(--cream);
+    margin-bottom:0.5rem;
+  }
+  .logo .dot-accent{color:var(--teal);}
+
+  .tagline{
+    font-family:var(--mono);
+    font-size:clamp(0.7rem,2vw,0.9rem);
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--cream-dim);
+    margin-bottom:3rem;
+    opacity:0;
+    animation:fade 1s ease 0.6s forwards;
+  }
+
+  .divider{
+    width:0;height:1px;
+    background:linear-gradient(90deg,transparent,var(--teal),transparent);
+    margin:0 auto 2.5rem;
+    animation:grow 1.4s ease 0.8s forwards;
+  }
+  @keyframes grow{to{width:min(340px,70vw);}}
+
+  .soon{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:700;
+    font-size:clamp(1.4rem,5vw,2.4rem);
+    color:var(--cream);
+    margin-bottom:0.6rem;
+    opacity:0;
+    animation:fade 1s ease 1s forwards;
+  }
+  .soon .pulse{
+    color:var(--teal);
+    position:relative;
+  }
+
+  .subtext{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    letter-spacing:0.15em;
+    color:var(--muted);
+    opacity:0;
+    animation:fade 1s ease 1.2s forwards;
+  }
+
+  @keyframes fade{to{opacity:1;}}
+
+  /* ── Email capture ── */
+  .notify{
+    margin-top:3rem;
+    display:flex;
+    gap:0.5rem;
+    justify-content:center;
+    flex-wrap:wrap;
+    opacity:0;
+    animation:fade 1s ease 1.4s forwards;
+  }
+  .notify input{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(10,191,179,0.25);
+    border-radius:40px;
+    padding:0.85rem 1.4rem;
+    color:var(--cream);
+    font-family:var(--mono);
+    font-size:0.82rem;
+    width:min(280px,70vw);
+    outline:none;
+    transition:border-color 0.3s,background 0.3s;
+  }
+  .notify input::placeholder{color:var(--muted);}
+  .notify input:focus{
+    border-color:var(--teal);
+    background:rgba(10,191,179,0.06);
+  }
+  .notify button{
+    background:var(--teal);
+    color:var(--navy-deep);
+    border:none;
+    border-radius:40px;
+    padding:0.85rem 1.8rem;
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:0.82rem;
+    letter-spacing:0.05em;
+    cursor:pointer;
+    transition:transform 0.2s,box-shadow 0.3s;
+  }
+  .notify button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(10,191,179,0.35);
+  }
+  .notify button:active{transform:translateY(0);}
+
+  .confirm{
+    margin-top:1.2rem;
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--teal);
+    height:1rem;
+    opacity:0;
+    transition:opacity 0.4s;
+  }
+  .confirm.show{opacity:1;}
+
+  /* ── Footer ── */
+  footer{
+    position:fixed;
+    bottom:1.6rem;left:0;right:0;
+    z-index:2;
+    text-align:center;
+    font-family:var(--mono);
+    font-size:0.68rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--muted);
+    opacity:0;
+    animation:fade 1s ease 1.6s forwards;
+  }
+
+  @media (max-width:600px){
+    .orbit.r3{display:none;}
+  }
+</style>
+</head>
+<body>
+  <div class="aurora"></div>
+  <div class="grain"></div>
+
+  <div class="orbit r1"><span class="dot"></span></div>
+  <div class="orbit r2"><span class="dot"></span></div>
+  <div class="orbit r3"></div>
+
+  <main class="content">
+    <div class="eyebrow">Personal Finance OS</div>
+    <h1 class="logo">Abba<span class="dot-accent">cus</span></h1>
+    <div class="tagline">Toda a sua vida financeira em um só lugar</div>
+
+    <div class="divider"></div>
+
+    <p class="soon">Lançamento <span class="pulse">em breve</span>.</p>
+    <p class="subtext">Estamos construindo algo poderoso.</p>
+
+    <div class="notify">
+      <input type="email" id="email" placeholder="seu@email.com" aria-label="E-mail">
+      <button id="notifyBtn">Avise-me</button>
+    </div>
+    <div class="confirm" id="confirm">✓ Pronto! Avisaremos você no lançamento.</div>
+  </main>
+
+  <footer>© 2026 Abbacus · abbacusfin.com</footer>
+
+  <script>
+    const btn = document.getElementById('notifyBtn');
+    const email = document.getElementById('email');
+    const confirm = document.getElementById('confirm');
+
+    function submit(){
+      const val = email.value.trim();
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      if(!valid){
+        email.style.borderColor = '#FF6B6B';
+        setTimeout(()=>{ email.style.borderColor = ''; }, 1500);
+        return;
+      }
+      confirm.classList.add('show');
+      email.value = '';
+      email.disabled = true;
+      btn.disabled = true;
+      btn.textContent = 'Inscrito';
+      btn.style.opacity = '0.6';
+    }
+
+    btn.addEventListener('click', submit);
+    email.addEventListener('keydown', e=>{ if(e.key==='Enter') submit(); });
+  </script>
+
+
+</body></html>
